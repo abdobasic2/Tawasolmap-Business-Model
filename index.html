@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج العمل التجاري - تواصل الرياض</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #0a192f;
+            color: #ccd6f6;
+        }
+       .canvas-card {
+            background-color: #112240;
+            border: 1px solid #233554;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+       .canvas-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+            border-color: #64ffda;
+        }
+       .card-icon {
+            font-size: 3rem;
+            color: #64ffda;
+        }
+       .card-title {
+            color: #ccd6f6;
+        }
+       .card-subtitle {
+            color: #8892b0;
+        }
+       .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+       .modal-content {
+            transition: transform 0.3s ease;
+        }
+       .modal-list li::before {
+            content: '✓';
+            color: #64ffda;
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+            margin-left: -1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-4 sm:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">نموذج العمل التجاري</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-teal-300">شركة تواصل الرياض لخدمات تتبع المركبات</h2>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
+            <div class="lg:col-span-2 canvas-card rounded-lg p-6" onclick="openModal('partnerships')">
+                <div class="card-icon mb-4">🤝</div>
+                <h3 class="card-title text-xl font-bold">الشراكات الرئيسية</h3>
+                <p class="card-subtitle text-sm mt-2">التحالفات التي تدعم نموذج عملنا</p>
+            </div>
+
+            <div class="lg:col-span-3 space-y-4">
+                <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('activities')">
+                    <div class="card-icon mb-2">⚙️</div>
+                    <h3 class="card-title text-xl font-bold">الأنشطة الرئيسية</h3>
+                    <p class="card-subtitle text-sm mt-1">أهم الإجراءات التي نقوم بها</p>
+                </div>
+                <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('resources')">
+                    <div class="card-icon mb-2">📦</div>
+                    <h3 class="card-title text-xl font-bold">الموارد الرئيسية</h3>
+                    <p class="card-subtitle text-sm mt-1">الأصول التي لا غنى عنها</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 canvas-card rounded-lg p-6 flex flex-col justify-center items-center text-center" onclick="openModal('value')">
+                <div class="card-icon mb-4">🎁</div>
+                <h3 class="card-title text-2xl font-bold">القيمة المقترحة</h3>
+                <p class="card-subtitle text-sm mt-2">لماذا يختارنا العملاء؟</p>
+            </div>
+
+            <div class="lg:col-span-3 space-y-4">
+                <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('relationships')">
+                    <div class="card-icon mb-2">❤️</div>
+                    <h3 class="card-title text-xl font-bold">العلاقات مع العملاء</h3>
+                    <p class="card-subtitle text-sm mt-1">كيف نتفاعل مع عملائنا</p>
+                </div>
+                <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('channels')">
+                    <div class="card-icon mb-2">🚚</div>
+                    <h3 class="card-title text-xl font-bold">القنوات</h3>
+                    <p class="card-subtitle text-sm mt-1">كيف نصل إلى عملائنا</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 canvas-card rounded-lg p-6" onclick="openModal('segments')">
+                <div class="card-icon mb-4">🎯</div>
+                <h3 class="card-title text-xl font-bold">شرائح العملاء</h3>
+                <p class="card-subtitle text-sm mt-2">من هم عملاؤنا الذين نخدمهم؟</p>
+            </div>
+
+            <div class="lg:col-span-6 canvas-card rounded-lg p-6" onclick="openModal('costs')">
+                <div class="card-icon mb-4">💸</div>
+                <h3 class="card-title text-xl font-bold">هيكل التكاليف</h3>
+                <p class="card-subtitle text-sm mt-2">أهم التكاليف والمصاريف في نموذج عملنا</p>
+            </div>
+
+            <div class="lg:col-span-6 canvas-card rounded-lg p-6" onclick="openModal('revenue')">
+                <div class="card-icon mb-4">💰</div>
+                <h3 class="card-title text-xl font-bold">مصادر الإيرادات</h3>
+                <p class="card-subtitle text-sm mt-2">كيف نجني الأموال من القيمة التي نقدمها</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-gray-800 rounded-lg shadow-2xl w-full max-w-2xl max-h-full overflow-y-auto p-8 transform scale-95">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="text-3xl font-bold text-teal-300"></h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-4xl">&times;</button>
+            </div>
+            <div id="modal-body" class="text-lg leading-relaxed"></div>
+        </div>
+    </div>
+
+    <script>
+        const modalData = {
+            segments: {
+                title: "🎯 شرائح العملاء",
+                body: `
+                    <p class="mb-4">نحن نخدم قاعدة عملاء متنوعة، لكل منها احتياجاتها الخاصة، ونقسمهم إلى:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>الأفراد (B2C):</strong> ملاك السيارات الشخصية الباحثون عن الأمان لعائلاتهم وحماية مركباتهم من السرقة.</li>
+                        <li><strong>الشركات والمؤسسات (B2B/B2G):</strong> وتشمل قطاعات متعددة مثل شركات النقل والخدمات اللوجستية، شركات تأجير السيارات، شركات المقاولات، المدارس والجامعات، والجهات الحكومية.</li>
+                        <li><strong>تجار الجملة والموزعون (B2R):</strong> المنافسون والشركات الصغيرة التي تتعاقد معنا لشراء خدماتنا وإعادة بيعها لعملائهم، مستفيدين من اعتمادنا الرسمي وجودة منصتنا.</li>
+                    </ul>
+                `
+            },
+            value: {
+                title: "🎁 القيمة المقترحة",
+                body: `
+                    <p class="mb-4">نحن لا نبيع مجرد جهاز، بل نقدم منظومة متكاملة من الأمان والكفاءة والامتثال:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>الامتثال الفوري والسهل:</strong> نتميز بكوننا الحل الأسرع والأكثر موثوقية للربط مع منصة "وصل" واستخراج كرت التشغيل، مما يضمن لعملائنا الشرعية التشغيلية وتجنب المخالفات.</li>
+                        <li><strong>الأمان والتحكم الكامل:</strong> نوفر حماية فائقة ضد السرقة عبر التتبع اللحظي وإيقاف المحرك عن بعد، بالإضافة إلى مراقبة دقيقة لسلوك السائق لضمان سلامة الركاب والمركبة.</li>
+                        <li><strong>الكفاءة التشغيلية وتوفير التكاليف:</strong> نساعد الشركات على خفض مصاريف الوقود والصيانة من خلال تقارير ذكية، وتحسين إدارة الأسطول بالكامل من منصة واحدة.</li>
+                        <li><strong>حلول متخصصة:</strong> نقدم ملحقات متقدمة مثل حساسات الحرارة والوزن لتلبية الاحتياجات الدقيقة لقطاعات النقل المبرد والشحن.</li>
+                    </ul>
+                `
+            },
+            channels: {
+                title: "🚚 القنوات",
+                body: `
+                    <p class="mb-4">نصل إلى عملائنا ونخدمهم عبر مزيج من القنوات الرقمية والمادية:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>فريق المبيعات المباشر والفروع:</strong> شبكتنا المكونة من 7 فروع في أنحاء المملكة هي نقطة الاتصال المباشر للبيع والتركيب والدعم.</li>
+                        <li><strong>القنوات الرقمية:</strong> الموقع الإلكتروني الرسمي، وحملات إعلانية مستهدفة على جوجل ومنصات التواصل الاجتماعي (تويتر، تيك توك، سناب شات، انستغرام).</li>
+                        <li><strong>الأسواق الإلكترونية:</strong> تواجد استراتيجي ومخصص لكل فرع على منصة "حراج" لتحويل العملاء ذوي النية الشرائية العالية.</li>
+                        <li><strong>قنوات الاتصال المباشر:</strong> مركز الاتصال الموحد والواتساب لتقديم استجابة سريعة للاستفسارات وعمليات البيع.</li>
+                    </ul>
+                `
+            },
+            relationships: {
+                title: "❤️ العلاقات مع العملاء",
+                body: `
+                    <p class="mb-4">نبني علاقات قوية ومستدامة مع عملائنا من خلال:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>الدعم الفني المتميز (24/7):</strong> فريق دعم فني متخصص ومتاح على مدار الساعة لحل أي مشكلة وضمان استمرارية الخدمة.</li>
+                        <li><strong>الخدمة الشخصية:</strong> من خلال فروعنا وفريق التركيبات، نقدم خدمة شخصية ومباشرة تلبي احتياجات العميل في موقعه.</li>
+                        <li><strong>الخدمة الذاتية (Self-Service):</strong> منصة وتطبيق "TawasolMap" يمنحان العميل القدرة على التحكم الكامل وإدارة حسابه بنفسه.</li>
+                        <li><strong>التفاعل والمشاركة:</strong> بناء مجتمع حول علامتنا التجارية عبر محتوى تفاعلي وتعليمي على منصات التواصل الاجتماعي.</li>
+                    </ul>
+                `
+            },
+            revenue: {
+                title: "💰 مصادر الإيرادات",
+                body: `
+                    <p class="mb-4">تعتمد استراتيجيتنا المالية على نموذجين رئيسيين لتحقيق إيرادات مستدامة:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>الإيرادات المتكررة (الأساسية):</strong> الاشتراكات السنوية في باقات الخدمة (مثل باقة 499 ريال التي تشمل جهاز تتبع مجاني)، وهي تشكل المصدر الرئيسي والمستدام للدخل.</li>
+                        <li><strong>الإيرادات من المبيعات المباشرة:</strong> البيع لمرة واحدة للأجهزة الإضافية والملحقات المتقدمة مثل الحساسات (حرارة، وزن)، وكاميرات الداش كام، وأنظمة البصمة.</li>
+                    </ul>
+                `
+            },
+            activities: {
+                title: "⚙️ الأنشطة الرئيسية",
+                body: `
+                    <p class="mb-4">لتقديم قيمتنا المقترحة، نركز على الأنشطة الحيوية التالية:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>تطوير وصيانة المنصة:</strong> التحسين المستمر لبرنامج وتطبيق "TawasolMap" لضمان تقديم أفضل تجربة وأحدث الميزات.</li>
+                        <li><strong>التسويق والمبيعات:</strong> إدارة الحملات الرقمية، وتطوير المحتوى، والبيع المباشر عبر جميع قنواتنا.</li>
+                        <li><strong>العمليات الميدانية:</strong> تركيب الأجهزة، الصيانة، وتقديم الدعم الفني المباشر للعملاء عبر شبكة فروعنا.</li>
+                        <li><strong>إدارة الامتثال الحكومي:</strong> الحفاظ على الاعتمادات الرسمية وتحديث أنظمتنا لتتوافق مع متطلبات هيئة النقل ومنصة وصل بشكل مستمر.</li>
+                        <li><strong>إدارة سلسلة التوريد:</strong> استيراد وإدارة مخزون الأجهزة والملحقات من شركائنا الدوليين.</li>
+                    </ul>
+                `
+            },
+            resources: {
+                title: "📦 الموارد الرئيسية",
+                body: `
+                    <p class="mb-4">أصولنا الرئيسية التي تمكننا من النجاح هي:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>الأصول الفكرية (الأهم):</strong> منصة "TawasolMap" البرمجية، الاعتمادات الحكومية الرسمية (هيئة النقل، وصل، هيئة الاتصالات)، والعلامة التجارية "تواصل الرياض".</li>
+                        <li><strong>الأصول المادية:</strong> شبكة الفروع السبعة المنتشرة في المملكة، ومخزون الأجهزة والملحقات.</li>
+                        <li><strong>الأصول البشرية:</strong> فريق المطورين، والفنيون المتخصصون في التركيب والصيانة، وفريق المبيعات والتسويق.</li>
+                        <li><strong>الشراكات:</strong> علاقاتنا القوية مع موردي الأجهزة العالميين ومزودي خدمات الاتصالات.</li>
+                    </ul>
+                `
+            },
+            partnerships: {
+                title: "🤝 الشراكات الرئيسية",
+                body: `
+                    <p class="mb-4">يعتمد نجاحنا على شبكة من الشركاء الاستراتيجيين:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>موردو الأجهزة:</strong> شركات عالمية رائدة مثل Teltonika و Galileosky لتوفير أجهزة تتبع عالية الجودة.</li>
+                        <li><strong>مزودو خدمات الاتصالات:</strong> شركات الاتصالات في المملكة (مثل STC, Mobily, Zain) لتوفير شرائح البيانات (SIM Cards) اللازمة لعمل الأجهزة.</li>
+                        <li><strong>الجهات التنظيمية:</strong> علاقة عمل وثيقة مع الهيئة العامة للنقل (TGA) ومنصة "وصل" لضمان الامتثال الكامل للأنظمة.</li>
+                        <li><strong>شركاء القنوات (الموزعون):</strong> تجار الجملة وشركات التتبع الأخرى التي تعيد بيع خدماتنا المعتمدة.</li>
+                    </ul>
+                `
+            },
+            costs: {
+                title: "💸 هيكل التكاليف",
+                body: `
+                    <p class="mb-4">تتركز مصاريفنا بشكل أساسي في البنود التالية لضمان تقديم خدمة عالية الجودة:</p>
+                    <ul class="modal-list list-inside space-y-3">
+                        <li><strong>التكاليف المتغيرة (الأكبر):</strong> تكلفة شراء الأجهزة والملحقات (Cost of Goods Sold - COGS) التي نقدمها للعملاء.</li>
+                        <li><strong>التكاليف الثابتة (الأكبر):</strong> رواتب وأجور الموظفين (فريق التطوير، الفنيون، المبيعات، الدعم، الإدارة).</li>
+                        <li><strong>تكاليف التسويق والإعلان:</strong> ميزانية الحملات الإعلانية المدفوعة على المنصات الرقمية.</li>
+                        <li><strong>التكاليف التشغيلية الأخرى:</strong> تشمل تكاليف استضافة الخوادم للمنصة، إيجارات ومصاريف الفروع السبعة، وتكاليف شرائح البيانات والاتصالات.</li>
+                    </ul>
+                `
+            }
+        };
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(key) {
+            if (modalData[key]) {
+                modalTitle.innerText = modalData[key].title;
+                modalBody.innerHTML = modalData[key].body;
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
