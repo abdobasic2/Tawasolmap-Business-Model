@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
@@ -15,6 +15,9 @@
             color: #ccd6f6;
             background-image: radial-gradient(#112240 1px, transparent 1px);
             background-size: 20px 20px;
+        }
+        html[lang="en"] body {
+            font-family: 'Poppins', sans-serif;
         }
        .canvas-card {
             background-color: rgba(17, 34, 64, 0.75);
@@ -70,82 +73,95 @@
         }
        .modal-list li {
             position: relative;
-            padding-right: 2em;
        }
+       html[dir="rtl"] .modal-list li { padding-right: 2em; }
+       html[dir="ltr"] .modal-list li { padding-left: 2em; }
+
        .modal-list li::before {
             content: '›';
             color: #64ffda;
             font-weight: bold;
             position: absolute;
-            right: 0;
             top: 0;
             font-size: 1.5em;
             line-height: 1;
         }
+       html[dir="rtl"] .modal-list li::before { right: 0; }
+       html[dir="ltr"] .modal-list li::before { left: 0; transform: scaleX(-1);}
+       
+       .lang-switcher button.active {
+            background-color: #64ffda;
+            color: #0a192f;
+       }
     </style>
 </head>
 <body class="antialiased">
     <div class="container mx-auto p-4 sm:p-8">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">نموذج العمل التجاري</h1>
-            <h2 class="text-2xl md:text-3xl font-bold text-teal-300">شركة تواصل الرياض لخدمات تتبع المركبات</h2>
+        <div class="absolute top-4 right-4 sm:top-8 sm:right-8 z-10 lang-switcher bg-gray-900/50 rounded-full border border-teal-300/20 p-1 flex space-x-1">
+             <button onclick="changeLanguage('ar')" id="lang-ar" class="px-3 py-1 text-sm font-bold rounded-full transition-colors active">العربية</button>
+             <button onclick="changeLanguage('en')" id="lang-en" class="px-3 py-1 text-sm font-bold rounded-full transition-colors">English</button>
+        </div>
+
+        <header class="text-center mb-12 pt-16">
+            <h1 data-i18n-key="mainTitle" class="text-4xl md:text-5xl font-extrabold mb-2">نموذج العمل التجاري</h1>
+            <h2 data-i18n-key="mainSubtitle" class="text-2xl md:text-3xl font-bold text-teal-300">شركة تواصل الرياض لخدمات تتبع المركبات</h2>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
             <div class="lg:col-span-2 canvas-card rounded-lg p-6" onclick="openModal('partnerships')">
                 <div class="card-icon mb-4">🤝</div>
-                <h3 class="card-title text-xl font-bold">الشراكات الرئيسية</h3>
-                <p class="card-subtitle text-sm mt-2">التحالفات التي تدعم نموذج عملنا</p>
+                <h3 data-i18n-key="partnershipsTitle" class="card-title text-xl font-bold">الشراكات الرئيسية</h3>
+                <p data-i18n-key="partnershipsSubtitle" class="card-subtitle text-sm mt-2">التحالفات التي تدعم نموذج عملنا</p>
             </div>
 
             <div class="lg:col-span-3 space-y-4">
                 <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('activities')">
                     <div class="card-icon mb-2">⚙️</div>
-                    <h3 class="card-title text-xl font-bold">الأنشطة الرئيسية</h3>
-                    <p class="card-subtitle text-sm mt-1">أهم الإجراءات التي نقوم بها</p>
+                    <h3 data-i18n-key="activitiesTitle" class="card-title text-xl font-bold">الأنشطة الرئيسية</h3>
+                    <p data-i18n-key="activitiesSubtitle" class="card-subtitle text-sm mt-1">أهم الإجراءات التي نقوم بها</p>
                 </div>
                 <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('resources')">
                     <div class="card-icon mb-2">📦</div>
-                    <h3 class="card-title text-xl font-bold">الموارد الرئيسية</h3>
-                    <p class="card-subtitle text-sm mt-1">الأصول التي لا غنى عنها</p>
+                    <h3 data-i18n-key="resourcesTitle" class="card-title text-xl font-bold">الموارد الرئيسية</h3>
+                    <p data-i18n-key="resourcesSubtitle" class="card-subtitle text-sm mt-1">الأصول التي لا غنى عنها</p>
                 </div>
             </div>
 
             <div class="lg:col-span-2 canvas-card rounded-lg p-6 flex flex-col justify-center items-center text-center" onclick="openModal('value')">
                 <div class="card-icon mb-4">🎁</div>
-                <h3 class="card-title text-2xl font-bold">القيمة المقترحة</h3>
-                <p class="card-subtitle text-sm mt-2">لماذا يختارنا العملاء؟</p>
+                <h3 data-i18n-key="valueTitle" class="card-title text-2xl font-bold">القيمة المقترحة</h3>
+                <p data-i18n-key="valueSubtitle" class="card-subtitle text-sm mt-2">لماذا يختارنا العملاء؟</p>
             </div>
 
             <div class="lg:col-span-3 space-y-4">
                 <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('relationships')">
                     <div class="card-icon mb-2">❤️</div>
-                    <h3 class="card-title text-xl font-bold">العلاقات مع العملاء</h3>
-                    <p class="card-subtitle text-sm mt-1">كيف نتفاعل مع عملائنا</p>
+                    <h3 data-i18n-key="relationshipsTitle" class="card-title text-xl font-bold">العلاقات مع العملاء</h3>
+                    <p data-i18n-key="relationshipsSubtitle" class="card-subtitle text-sm mt-1">كيف نتفاعل مع عملائنا</p>
                 </div>
                 <div class="canvas-card rounded-lg p-6 h-1/2 flex flex-col justify-center" onclick="openModal('channels')">
                     <div class="card-icon mb-2">🚚</div>
-                    <h3 class="card-title text-xl font-bold">القنوات</h3>
-                    <p class="card-subtitle text-sm mt-1">كيف نصل إلى عملائنا</p>
+                    <h3 data-i18n-key="channelsTitle" class="card-title text-xl font-bold">القنوات</h3>
+                    <p data-i18n-key="channelsSubtitle" class="card-subtitle text-sm mt-1">كيف نصل إلى عملائنا</p>
                 </div>
             </div>
 
             <div class="lg:col-span-2 canvas-card rounded-lg p-6" onclick="openModal('segments')">
                 <div class="card-icon mb-4">🎯</div>
-                <h3 class="card-title text-xl font-bold">شرائح العملاء</h3>
-                <p class="card-subtitle text-sm mt-2">من هم عملاؤنا الذين نخدمهم؟</p>
+                <h3 data-i18n-key="segmentsTitle" class="card-title text-xl font-bold">شرائح العملاء</h3>
+                <p data-i18n-key="segmentsSubtitle" class="card-subtitle text-sm mt-2">من هم عملاؤنا الذين نخدمهم؟</p>
             </div>
 
             <div class="lg:col-span-6 canvas-card rounded-lg p-6" onclick="openModal('costs')">
                 <div class="card-icon mb-4">💸</div>
-                <h3 class="card-title text-xl font-bold">هيكل التكاليف</h3>
-                <p class="card-subtitle text-sm mt-2">أهم التكاليف والمصاريف في نموذج عملنا</p>
+                <h3 data-i18n-key="costsTitle" class="card-title text-xl font-bold">هيكل التكاليف</h3>
+                <p data-i18n-key="costsSubtitle" class="card-subtitle text-sm mt-2">أهم التكاليف والمصاريف في نموذج عملنا</p>
             </div>
 
             <div class="lg:col-span-6 canvas-card rounded-lg p-6" onclick="openModal('revenue')">
                 <div class="card-icon mb-4">💰</div>
-                <h3 class="card-title text-xl font-bold">مصادر الإيرادات</h3>
-                <p class="card-subtitle text-sm mt-2">كيف نجني الأموال من القيمة التي نقدمها</p>
+                <h3 data-i18n-key="revenueTitle" class="card-title text-xl font-bold">مصادر الإيرادات</h3>
+                <p data-i18n-key="revenueSubtitle" class="card-subtitle text-sm mt-2">كيف نجني الأموال من القيمة التي نقدمها</p>
             </div>
         </div>
     </div>
@@ -161,112 +177,86 @@
     </div>
 
     <script>
-        const modalData = {
-            segments: {
-                title: "🎯 شرائح العملاء",
-                body: `
-                    <p class="mb-4">نحن نخدم قاعدة عملاء متنوعة، لكل منها احتياجاتها الخاصة، ونقسمهم إلى:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>الأفراد (B2C):</strong> ملاك السيارات الشخصية الباحثون عن الأمان لعائلاتهم وحماية مركباتهم من السرقة.</li>
-                        <li><strong>الشركات والمؤسسات (B2B/B2G):</strong> وتشمل قطاعات متعددة مثل شركات النقل والخدمات اللوجستية، شركات تأجير السيارات، شركات المقاولات، المدارس والجامعات، والجهات الحكومية.</li>
-                        <li><strong>تجار الجملة والموزعون (B2R):</strong> المنافسون والشركات الصغيرة التي تتعاقد معنا لشراء خدماتنا وإعادة بيعها لعملائهم، مستفيدين من اعتمادنا الرسمي وجودة منصتنا.</li>
-                    </ul>
-                `
+        const translations = {
+            ar: {
+                mainTitle: "نموذج العمل التجاري",
+                mainSubtitle: "شركة تواصل الرياض لخدمات تتبع المركبات",
+                partnershipsTitle: "الشراكات الرئيسية",
+                partnershipsSubtitle: "التحالفات التي تدعم نموذج عملنا",
+                activitiesTitle: "الأنشطة الرئيسية",
+                activitiesSubtitle: "أهم الإجراءات التي نقوم بها",
+                resourcesTitle: "الموارد الرئيسية",
+                resourcesSubtitle: "الأصول التي لا غنى عنها",
+                valueTitle: "القيمة المقترحة",
+                valueSubtitle: "لماذا يختارنا العملاء؟",
+                relationshipsTitle: "العلاقات مع العملاء",
+                relationshipsSubtitle: "كيف نتفاعل مع عملائنا",
+                channelsTitle: "القنوات",
+                channelsSubtitle: "كيف نصل إلى عملائنا",
+                segmentsTitle: "شرائح العملاء",
+                segmentsSubtitle: "من هم عملاؤنا الذين نخدمهم؟",
+                costsTitle: "هيكل التكاليف",
+                costsSubtitle: "أهم التكاليف والمصاريف في نموذج عملنا",
+                revenueTitle: "مصادر الإيرادات",
+                revenueSubtitle: "كيف نجني الأموال من القيمة التي نقدمها",
+                modal_segments_title: "🎯 شرائح العملاء",
+                modal_segments_body: `<p class="mb-4">نحن نخدم قاعدة عملاء متنوعة، لكل منها احتياجاتها الخاصة، ونقسمهم إلى:</p><ul class="modal-list list-inside space-y-3"><li><strong>الأفراد (B2C):</strong> ملاك السيارات الشخصية الباحثون عن الأمان لعائلاتهم وحماية مركباتهم من السرقة.</li><li><strong>الشركات والمؤسسات (B2B/B2G):</strong> وتشمل قطاعات متعددة مثل شركات النقل والخدمات اللوجستية، شركات تأجير السيارات، شركات المقاولات، المدارس والجامعات، والجهات الحكومية.</li><li><strong>تجار الجملة والموزعون (B2R):</strong> المنافسون والشركات الصغيرة التي تتعاقد معنا لشراء خدماتنا وإعادة بيعها لعملائهم، مستفيدين من اعتمادنا الرسمي وجودة منصتنا.</li></ul>`,
+                modal_value_title: "🎁 القيمة المقترحة",
+                modal_value_body: `<p class="mb-4">نحن لا نبيع مجرد جهاز، بل نقدم منظومة متكاملة من الأمان والكفاءة والامتثال:</p><ul class="modal-list list-inside space-y-3"><li><strong>الامتثال الفوري والسهل:</strong> نتميز بكوننا الحل الأسرع والأكثر موثوقية للربط مع منصة "وصل" واستخراج كرت التشغيل، مما يضمن لعملائنا الشرعية التشغيلية وتجنب المخالفات.</li><li><strong>الأمان والتحكم الكامل:</strong> نوفر حماية فائقة ضد السرقة عبر التتبع اللحظي وإيقاف المحرك عن بعد، بالإضافة إلى مراقبة دقيقة لسلوك السائق لضمان سلامة الركاب والمركبة.</li><li><strong>الكفاءة التشغيلية وتوفير التكاليف:</strong> نساعد الشركات على خفض مصاريف الوقود والصيانة من خلال تقارير ذكية، وتحسين إدارة الأسطول بالكامل من منصة واحدة.</li><li><strong>حلول متخصصة:</strong> نقدم ملحقات متقدمة مثل حساسات الحرارة والوزن لتلبية الاحتياجات الدقيقة لقطاعات النقل المبرد والشحن.</li></ul>`,
+                modal_channels_title: "🚚 القنوات",
+                modal_channels_body: `<p class="mb-4">نصل إلى عملائنا ونخدمهم عبر مزيج من القنوات الرقمية والمادية:</p><ul class="modal-list list-inside space-y-3"><li><strong>فريق المبيعات المباشر والفروع:</strong> شبكتنا المكونة من 7 فروع في أنحاء المملكة هي نقطة الاتصال المباشر للبيع والتركيب والدعم.</li><li><strong>القنوات الرقمية:</strong> الموقع الإلكتروني الرسمي، وحملات إعلانية مستهدفة على جوجل ومنصات التواصل الاجتماعي (تويتر، تيك توك، سناب شات، انستغرام).</li><li><strong>الأسواق الإلكترونية:</strong> تواجد استراتيجي ومخصص لكل فرع على منصة "حراج" لتحويل العملاء ذوي النية الشرائية العالية.</li><li><strong>قنوات الاتصال المباشر:</strong> مركز الاتصال الموحد والواتساب لتقديم استجابة سريعة للاستفسارات وعمليات البيع.</li></ul>`,
+                modal_relationships_title: "❤️ العلاقات مع العملاء",
+                modal_relationships_body: `<p class="mb-4">نبني علاقات قوية ومستدامة مع عملائنا من خلال:</p><ul class="modal-list list-inside space-y-3"><li><strong>الدعم الفني المتميز (24/7):</strong> فريق دعم فني متخصص ومتاح على مدار الساعة لحل أي مشكلة وضمان استمرارية الخدمة.</li><li><strong>الخدمة الشخصية:</strong> من خلال فروعنا وفريق التركيبات، نقدم خدمة شخصية ومباشرة تلبي احتياجات العميل في موقعه.</li><li><strong>الخدمة الذاتية (Self-Service):</strong> منصة وتطبيق "TawasolMap" يمنحان العميل القدرة على التحكم الكامل وإدارة حسابه بنفسه.</li><li><strong>التفاعل والمشاركة:</strong> بناء مجتمع حول علامتنا التجارية عبر محتوى تفاعلي وتعليمي على منصات التواصل الاجتماعي.</li></ul>`,
+                modal_revenue_title: "💰 مصادر الإيرادات",
+                modal_revenue_body: `<p class="mb-4">تعتمد استراتيجيتنا المالية على نموذجين رئيسيين لتحقيق إيرادات مستدامة:</p><ul class="modal-list list-inside space-y-3"><li><strong>الإيرادات المتكررة (الأساسية):</strong> الاشتراكات السنوية في باقات الخدمة (مثل باقة 499 ريال التي تشمل جهاز تتبع مجاني)، وهي تشكل المصدر الرئيسي والمستدام للدخل.</li><li><strong>الإيرادات من المبيعات المباشرة:</strong> البيع لمرة واحدة للأجهزة الإضافية والملحقات المتقدمة مثل الحساسات (حرارة، وزن)، وكاميرات الداش كام، وأنظمة البصمة.</li></ul>`,
+                modal_activities_title: "⚙️ الأنشطة الرئيسية",
+                modal_activities_body: `<p class="mb-4">لتقديم قيمتنا المقترحة، نركز على الأنشطة الحيوية التالية:</p><ul class="modal-list list-inside space-y-3"><li><strong>تطوير وصيانة المنصة:</strong> التحسين المستمر لبرنامج وتطبيق "TawasolMap" لضمان تقديم أفضل تجربة وأحدث الميزات.</li><li><strong>التسويق والمبيعات:</strong> إدارة الحملات الرقمية، وتطوير المحتوى، والبيع المباشر عبر جميع قنواتنا.</li><li><strong>العمليات الميدانية:</strong> تركيب الأجهزة، الصيانة، وتقديم الدعم الفني المباشر للعملاء عبر شبكة فروعنا.</li><li><strong>إدارة الامتثال الحكومي:</strong> الحفاظ على الاعتمادات الرسمية وتحديث أنظمتنا لتتوافق مع متطلبات هيئة النقل ومنصة وصل بشكل مستمر.</li><li><strong>إدارة سلسلة التوريد:</strong> استيراد وإدارة مخزون الأجهزة والملحقات من شركائنا الدوليين.</li></ul>`,
+                modal_resources_title: "📦 الموارد الرئيسية",
+                modal_resources_body: `<p class="mb-4">أصولنا الرئيسية التي تمكننا من النجاح هي:</p><ul class="modal-list list-inside space-y-3"><li><strong>الأصول الفكرية (الأهم):</strong> منصة "TawasolMap" البرمجية، الاعتمادات الحكومية الرسمية (هيئة النقل، وصل، هيئة الاتصالات)، والعلامة التجارية "تواصل الرياض".</li><li><strong>الأصول المادية:</strong> شبكة الفروع السبعة المنتشرة في المملكة، ومخزون الأجهزة والملحقات.</li><li><strong>الأصول البشرية:</strong> فريق المطورين، والفنيون المتخصصون في التركيب والصيانة، وفريق المبيعات والتسويق.</li><li><strong>الشراكات:</strong> علاقاتنا القوية مع موردي الأجهزة العالميين ومزودي خدمات الاتصالات.</li></ul>`,
+                modal_partnerships_title: "🤝 الشراكات الرئيسية",
+                modal_partnerships_body: `<p class="mb-4">يعتمد نجاحنا على شبكة من الشركاء الاستراتيجيين:</p><ul class="modal-list list-inside space-y-3"><li><strong>موردو الأجهزة:</strong> شركات عالمية رائدة مثل Teltonika و Galileosky لتوفير أجهزة تتبع عالية الجودة.</li><li><strong>مزودو خدمات الاتصالات:</strong> شركات الاتصالات في المملكة (مثل STC, Mobily, Zain) لتوفير شرائح البيانات (SIM Cards) اللازمة لعمل الأجهزة.</li><li><strong>الجهات التنظيمية:</strong> علاقة عمل وثيقة مع الهيئة العامة للنقل (TGA) ومنصة "وصل" لضمان الامتثال الكامل للأنظمة.</li><li><strong>شركاء القنوات (الموزعون):</strong> تجار الجملة وشركات التتبع الأخرى التي تعيد بيع خدماتنا المعتمدة.</li></ul>`,
+                modal_costs_title: "💸 هيكل التكاليف",
+                modal_costs_body: `<p class="mb-4">تتركز مصاريفنا بشكل أساسي في البنود التالية لضمان تقديم خدمة عالية الجودة:</p><ul class="modal-list list-inside space-y-3"><li><strong>التكاليف المتغيرة (الأكبر):</strong> تكلفة شراء الأجهزة والملحقات (Cost of Goods Sold - COGS) التي نقدمها للعملاء.</li><li><strong>التكاليف الثابتة (الأكبر):</strong> رواتب وأجور الموظفين (فريق التطوير، الفنيون، المبيعات، الدعم، الإدارة).</li><li><strong>تكاليف التسويق والإعلان:</strong> ميزانية الحملات الإعلانية المدفوعة على المنصات الرقمية.</li><li><strong>التكاليف التشغيلية الأخرى:</strong> تشمل تكاليف استضافة الخوادم للمنصة، إيجارات ومصاريف الفروع السبعة، وتكاليف شرائح البيانات والاتصالات.</li></ul>`,
             },
-            value: {
-                title: "🎁 القيمة المقترحة",
-                body: `
-                    <p class="mb-4">نحن لا نبيع مجرد جهاز، بل نقدم منظومة متكاملة من الأمان والكفاءة والامتثال:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>الامتثال الفوري والسهل:</strong> نتميز بكوننا الحل الأسرع والأكثر موثوقية للربط مع منصة "وصل" واستخراج كرت التشغيل، مما يضمن لعملائنا الشرعية التشغيلية وتجنب المخالفات.</li>
-                        <li><strong>الأمان والتحكم الكامل:</strong> نوفر حماية فائقة ضد السرقة عبر التتبع اللحظي وإيقاف المحرك عن بعد، بالإضافة إلى مراقبة دقيقة لسلوك السائق لضمان سلامة الركاب والمركبة.</li>
-                        <li><strong>الكفاءة التشغيلية وتوفير التكاليف:</strong> نساعد الشركات على خفض مصاريف الوقود والصيانة من خلال تقارير ذكية، وتحسين إدارة الأسطول بالكامل من منصة واحدة.</li>
-                        <li><strong>حلول متخصصة:</strong> نقدم ملحقات متقدمة مثل حساسات الحرارة والوزن لتلبية الاحتياجات الدقيقة لقطاعات النقل المبرد والشحن.</li>
-                    </ul>
-                `
-            },
-            channels: {
-                title: "🚚 القنوات",
-                body: `
-                    <p class="mb-4">نصل إلى عملائنا ونخدمهم عبر مزيج من القنوات الرقمية والمادية:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>فريق المبيعات المباشر والفروع:</strong> شبكتنا المكونة من 7 فروع في أنحاء المملكة هي نقطة الاتصال المباشر للبيع والتركيب والدعم.</li>
-                        <li><strong>القنوات الرقمية:</strong> الموقع الإلكتروني الرسمي، وحملات إعلانية مستهدفة على جوجل ومنصات التواصل الاجتماعي (تويتر، تيك توك، سناب شات، انستغرام).</li>
-                        <li><strong>الأسواق الإلكترونية:</strong> تواجد استراتيجي ومخصص لكل فرع على منصة "حراج" لتحويل العملاء ذوي النية الشرائية العالية.</li>
-                        <li><strong>قنوات الاتصال المباشر:</strong> مركز الاتصال الموحد والواتساب لتقديم استجابة سريعة للاستفسارات وعمليات البيع.</li>
-                    </ul>
-                `
-            },
-            relationships: {
-                title: "❤️ العلاقات مع العملاء",
-                body: `
-                    <p class="mb-4">نبني علاقات قوية ومستدامة مع عملائنا من خلال:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>الدعم الفني المتميز (24/7):</strong> فريق دعم فني متخصص ومتاح على مدار الساعة لحل أي مشكلة وضمان استمرارية الخدمة.</li>
-                        <li><strong>الخدمة الشخصية:</strong> من خلال فروعنا وفريق التركيبات، نقدم خدمة شخصية ومباشرة تلبي احتياجات العميل في موقعه.</li>
-                        <li><strong>الخدمة الذاتية (Self-Service):</strong> منصة وتطبيق "TawasolMap" يمنحان العميل القدرة على التحكم الكامل وإدارة حسابه بنفسه.</li>
-                        <li><strong>التفاعل والمشاركة:</strong> بناء مجتمع حول علامتنا التجارية عبر محتوى تفاعلي وتعليمي على منصات التواصل الاجتماعي.</li>
-                    </ul>
-                `
-            },
-            revenue: {
-                title: "💰 مصادر الإيرادات",
-                body: `
-                    <p class="mb-4">تعتمد استراتيجيتنا المالية على نموذجين رئيسيين لتحقيق إيرادات مستدامة:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>الإيرادات المتكررة (الأساسية):</strong> الاشتراكات السنوية في باقات الخدمة (مثل باقة 499 ريال التي تشمل جهاز تتبع مجاني)، وهي تشكل المصدر الرئيسي والمستدام للدخل.</li>
-                        <li><strong>الإيرادات من المبيعات المباشرة:</strong> البيع لمرة واحدة للأجهزة الإضافية والملحقات المتقدمة مثل الحساسات (حرارة، وزن)، وكاميرات الداش كام، وأنظمة البصمة.</li>
-                    </ul>
-                `
-            },
-            activities: {
-                title: "⚙️ الأنشطة الرئيسية",
-                body: `
-                    <p class="mb-4">لتقديم قيمتنا المقترحة، نركز على الأنشطة الحيوية التالية:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>تطوير وصيانة المنصة:</strong> التحسين المستمر لبرنامج وتطبيق "TawasolMap" لضمان تقديم أفضل تجربة وأحدث الميزات.</li>
-                        <li><strong>التسويق والمبيعات:</strong> إدارة الحملات الرقمية، وتطوير المحتوى، والبيع المباشر عبر جميع قنواتنا.</li>
-                        <li><strong>العمليات الميدانية:</strong> تركيب الأجهزة، الصيانة، وتقديم الدعم الفني المباشر للعملاء عبر شبكة فروعنا.</li>
-                        <li><strong>إدارة الامتثال الحكومي:</strong> الحفاظ على الاعتمادات الرسمية وتحديث أنظمتنا لتتوافق مع متطلبات هيئة النقل ومنصة وصل بشكل مستمر.</li>
-                        <li><strong>إدارة سلسلة التوريد:</strong> استيراد وإدارة مخزون الأجهزة والملحقات من شركائنا الدوليين.</li>
-                    </ul>
-                `
-            },
-            resources: {
-                title: "📦 الموارد الرئيسية",
-                body: `
-                    <p class="mb-4">أصولنا الرئيسية التي تمكننا من النجاح هي:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>الأصول الفكرية (الأهم):</strong> منصة "TawasolMap" البرمجية، الاعتمادات الحكومية الرسمية (هيئة النقل، وصل، هيئة الاتصالات)، والعلامة التجارية "تواصل الرياض".</li>
-                        <li><strong>الأصول المادية:</strong> شبكة الفروع السبعة المنتشرة في المملكة، ومخزون الأجهزة والملحقات.</li>
-                        <li><strong>الأصول البشرية:</strong> فريق المطورين، والفنيون المتخصصون في التركيب والصيانة، وفريق المبيعات والتسويق.</li>
-                        <li><strong>الشراكات:</strong> علاقاتنا القوية مع موردي الأجهزة العالميين ومزودي خدمات الاتصالات.</li>
-                    </ul>
-                `
-            },
-            partnerships: {
-                title: "🤝 الشراكات الرئيسية",
-                body: `
-                    <p class="mb-4">يعتمد نجاحنا على شبكة من الشركاء الاستراتيجيين:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>موردو الأجهزة:</strong> شركات عالمية رائدة مثل Teltonika و Galileosky لتوفير أجهزة تتبع عالية الجودة.</li>
-                        <li><strong>مزودو خدمات الاتصالات:</strong> شركات الاتصالات في المملكة (مثل STC, Mobily, Zain) لتوفير شرائح البيانات (SIM Cards) اللازمة لعمل الأجهزة.</li>
-                        <li><strong>الجهات التنظيمية:</strong> علاقة عمل وثيقة مع الهيئة العامة للنقل (TGA) ومنصة "وصل" لضمان الامتثال الكامل للأنظمة.</li>
-                        <li><strong>شركاء القنوات (الموزعون):</strong> تجار الجملة وشركات التتبع الأخرى التي تعيد بيع خدماتنا المعتمدة.</li>
-                    </ul>
-                `
-            },
-            costs: {
-                title: "💸 هيكل التكاليف",
-                body: `
-                    <p class="mb-4">تتركز مصاريفنا بشكل أساسي في البنود التالية لضمان تقديم خدمة عالية الجودة:</p>
-                    <ul class="modal-list list-inside space-y-3">
-                        <li><strong>التكاليف المتغيرة (الأكبر):</strong> تكلفة شراء الأجهزة والملحقات (Cost of Goods Sold - COGS) التي نقدمها للعملاء.</li>
-                        <li><strong>التكاليف الثابتة (الأكبر):</strong> رواتب وأجور الموظفين (فريق التطوير، الفنيون، المبيعات، الدعم، الإدارة).</li>
-                        <li><strong>تكاليف التسويق والإعلان:</strong> ميزانية الحملات الإعلانية المدفوعة على المنصات الرقمية.</li>
-                        <li><strong>التكاليف التشغيلية الأخرى:</strong> تشمل تكاليف استضافة الخوادم للمنصة، إيجارات ومصاريف الفروع السبعة، وتكاليف شرائح البيانات والاتصالات.</li>
-                    </ul>
-                `
+            en: {
+                mainTitle: "Business Model Canvas",
+                mainSubtitle: "Tawasol Al-Riyadh for Vehicle Tracking Services",
+                partnershipsTitle: "Key Partnerships",
+                partnershipsSubtitle: "Alliances that support our business model",
+                activitiesTitle: "Key Activities",
+                activitiesSubtitle: "The most important actions we take",
+                resourcesTitle: "Key Resources",
+                resourcesSubtitle: "Our indispensable assets",
+                valueTitle: "Value Proposition",
+                valueSubtitle: "Why do customers choose us?",
+                relationshipsTitle: "Customer Relationships",
+                relationshipsSubtitle: "How we interact with our customers",
+                channelsTitle: "Channels",
+                channelsSubtitle: "How we reach our customers",
+                segmentsTitle: "Customer Segments",
+                segmentsSubtitle: "Who are the customers we serve?",
+                costsTitle: "Cost Structure",
+                costsSubtitle: "The most important costs in our business model",
+                revenueTitle: "Revenue Streams",
+                revenueSubtitle: "How we make money from our value proposition",
+                modal_segments_title: "🎯 Customer Segments",
+                modal_segments_body: `<p class="mb-4">We serve a diverse customer base, each with its own specific needs, divided into:</p><ul class="modal-list list-inside space-y-3"><li><strong>Individuals (B2C):</strong> Personal car owners seeking security for their families and protection for their vehicles from theft.</li><li><strong>Companies & Institutions (B2B/B2G):</strong> Includes multiple sectors such as transport and logistics companies, car rental agencies, construction companies, schools, universities, and government entities.</li><li><strong>Wholesalers & Resellers (B2R):</strong> Competitors and small businesses that contract with us to purchase our services and resell them to their own customers, benefiting from our official accreditation and platform quality.</li></ul>`,
+                modal_value_title: "🎁 Value Proposition",
+                modal_value_body: `<p class="mb-4">We don't just sell a device; we offer an integrated ecosystem of security, efficiency, and compliance:</p><ul class="modal-list list-inside space-y-3"><li><strong>Instant & Easy Compliance:</strong> We are the fastest and most reliable solution for linking with the "Wasl" platform and issuing operating cards, ensuring our clients' operational legality and avoiding fines.</li><li><strong>Complete Security & Control:</strong> We provide superior theft protection through real-time tracking and remote engine shutdown, plus precise driver behavior monitoring for passenger and vehicle safety.</li><li><strong>Operational Efficiency & Cost Savings:</strong> We help companies reduce fuel and maintenance expenses through smart reports and improve overall fleet management from a single platform.</li><li><strong>Specialized Solutions:</strong> We offer advanced accessories like temperature and weight sensors to meet the specific needs of refrigerated transport and shipping sectors.</li></ul>`,
+                modal_channels_title: "🚚 Channels",
+                modal_channels_body: `<p class="mb-4">We reach and serve our customers through a mix of digital and physical channels:</p><ul class="modal-list list-inside space-y-3"><li><strong>Direct Sales Team & Branches:</strong> Our network of 7 branches across the Kingdom serves as a direct point of contact for sales, installation, and support.</li><li><strong>Digital Channels:</strong> The official website, and targeted advertising campaigns on Google and social media platforms (Twitter, TikTok, Snapchat, Instagram).</li><li><strong>Online Marketplaces:</strong> A strategic and customized presence for each branch on the "Haraj" platform to convert high-intent customers.</li><li><strong>Direct Communication Channels:</strong> A unified call center and WhatsApp for quick responses to inquiries and sales processes.</li></ul>`,
+                modal_relationships_title: "❤️ Customer Relationships",
+                modal_relationships_body: `<p class="mb-4">We build strong and sustainable relationships with our customers through:</p><ul class="modal-list list-inside space-y-3"><li><strong>Excellent Technical Support (24/7):</strong> A specialized technical support team available around the clock to resolve any issues and ensure service continuity.</li><li><strong>Personal Service:</strong> Through our branches and installation teams, we provide personal and direct service that meets the customer's needs at their location.</li><li><strong>Self-Service:</strong> The "TawasolMap" platform and application give customers full control to manage their accounts themselves.</li><li><strong>Interaction & Engagement:</strong> Building a community around our brand through interactive and educational content on social media platforms.</li></ul>`,
+                modal_revenue_title: "💰 Revenue Streams",
+                modal_revenue_body: `<p class="mb-4">Our financial strategy relies on two main models for sustainable revenue:</p><ul class="modal-list list-inside space-y-3"><li><strong>Recurring Revenue (Core):</strong> Annual subscriptions to service packages (like the 499 SAR package which includes a free tracking device), forming the main and sustainable source of income.</li><li><strong>Direct Sales Revenue:</strong> One-time sales of additional devices and advanced accessories such as sensors (temperature, weight), dashcams, and fingerprint systems.</li></ul>`,
+                modal_activities_title: "⚙️ Key Activities",
+                modal_activities_body: `<p class="mb-4">To deliver our value proposition, we focus on the following vital activities:</p><ul class="modal-list list-inside space-y-3"><li><strong>Platform Development & Maintenance:</strong> Continuous improvement of the "TawasolMap" software and application to ensure the best experience and latest features.</li><li><strong>Marketing & Sales:</strong> Managing digital campaigns, content development, and direct sales across all our channels.</li><li><strong>Field Operations:</strong> Device installation, maintenance, and providing direct technical support to customers through our branch network.</li><li><strong>Government Compliance Management:</strong> Maintaining official accreditations and continuously updating our systems to comply with the requirements of the Transport Authority and the Wasl platform.</li><li><strong>Supply Chain Management:</strong> Importing and managing the inventory of devices and accessories from our international partners.</li></ul>`,
+                modal_resources_title: "📦 Key Resources",
+                modal_resources_body: `<p class="mb-4">Our key assets that enable our success are:</p><ul class="modal-list list-inside space-y-3"><li><strong>Intellectual Assets (Most Important):</strong> The "TawasolMap" software platform, official government accreditations (Transport Authority, Wasl, CITC), and the "Tawasol Al-Riyadh" brand.</li><li><strong>Physical Assets:</strong> The network of seven branches across the Kingdom, and the inventory of devices and accessories.</li><li><strong>Human Assets:</strong> The development team, specialized installation and maintenance technicians, and the sales and marketing team.</li><li><strong>Partnerships:</strong> Our strong relationships with global device suppliers and telecommunication service providers.</li></ul>`,
+                modal_partnerships_title: "🤝 Key Partnerships",
+                modal_partnerships_body: `<p class="mb-4">Our success depends on a network of strategic partners:</p><ul class="modal-list list-inside space-y-3"><li><strong>Device Suppliers:</strong> Leading global companies like Teltonika and Galileosky to provide high-quality tracking devices.</li><li><strong>Telecommunication Providers:</strong> Telecom companies in the Kingdom (like STC, Mobily, Zain) to provide the SIM cards necessary for device operation.</li><li><strong>Regulatory Bodies:</strong> A close working relationship with the Transport General Authority (TGA) and the "Wasl" platform to ensure full compliance with regulations.</li><li><strong>Channel Partners (Resellers):</strong> Wholesalers and other tracking companies that resell our accredited services.</li></ul>`,
+                modal_costs_title: "💸 Cost Structure",
+                modal_costs_body: `<p class="mb-4">Our expenses are primarily concentrated in the following areas to ensure high-quality service delivery:</p><ul class="modal-list list-inside space-y-3"><li><strong>Variable Costs (Largest):</strong> The cost of purchasing devices and accessories (Cost of Goods Sold - COGS) that we provide to customers.</li><li><strong>Fixed Costs (Largest):</strong> Employee salaries and wages (development team, technicians, sales, support, management).</li><li><strong>Marketing & Advertising Costs:</strong> The budget for paid advertising campaigns on digital platforms.</li><li><strong>Other Operating Costs:</strong> Includes server hosting costs for the platform, rent and expenses for the seven branches, and costs for data SIM cards and communications.</li></ul>`,
             }
         };
 
@@ -275,9 +265,11 @@
         const modalBody = document.getElementById('modal-body');
 
         function openModal(key) {
-            if (modalData[key]) {
-                modalTitle.innerText = modalData[key].title;
-                modalBody.innerHTML = modalData[key].body;
+            const lang = document.documentElement.lang;
+            const modalKey = `modal_${key}_`;
+            if (translations[lang][modalKey + 'title']) {
+                modalTitle.innerText = translations[lang][modalKey + 'title'];
+                modalBody.innerHTML = translations[lang][modalKey + 'body'];
                 modal.classList.remove('opacity-0', 'pointer-events-none');
                 document.body.style.overflow = 'hidden';
             }
@@ -286,6 +278,21 @@
         function closeModal() {
             modal.classList.add('opacity-0', 'pointer-events-none');
             document.body.style.overflow = 'auto';
+        }
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-i18n-key]').forEach(element => {
+                const key = element.getAttribute('data-i18n-key');
+                if (translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+            
+            document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
         }
 
         modal.addEventListener('click', (event) => {
@@ -299,6 +306,9 @@
                 closeModal();
             }
         });
+
+        // Set initial language
+        changeLanguage('ar');
     </script>
 </body>
 </html>
